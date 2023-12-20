@@ -1,0 +1,20 @@
+[
+	{
+		"nombre": "Jose",
+		"apellido": "Perez",
+		"edad": 22,
+		"curso": "matematica"
+	},
+	{
+		"nombre": "Maria",
+		"apellido": "Lopez",
+		"edad": 24,
+		"curso": "matematica"
+	},
+	{
+		"nombre": "Marta",
+		"apellido": "Gonzalez",
+		"edad": 23,
+		"curso": "matematica"
+	}
+]
