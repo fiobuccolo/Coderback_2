@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import handlebars from "express-handlebars"
 import __dirname from './dirname.js';
 import viewsRouter from './routes/views.routes.js';
+import { ManagerPost } from './manager/ejemplo1.js';
 
 const app = express();
 
@@ -28,16 +29,24 @@ app.set("views",__dirname+`/views`)
 
 
 app.use("/api/posts",router)
-
-
 app.use("/",viewsRouter)
-
-
 app.use(logger)
 
-
+const manager = new ManagerPost("./posts.json")
 io.on("connection", (socket) => {
-   console.log("nuevo cliente conectado"); 
+   console.log("nuevo cliente conectado");
+   
+   socket.on("post_send",async (data)=>{
+      console.log(data);
+      try {
+         await manager.savePost(data)
+      socket.emit("posts",manager.getPosts())
+      } catch (error) {
+         console.log(error);
+      } 
+   })
+   socket.emit("posts",manager.getPosts())
+ 
 })
 
 

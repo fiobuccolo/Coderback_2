@@ -71,6 +71,6 @@ async function fetchDatos(){
  
 }
 
- fetchDatos()
+ //fetchDatos()
 
  export { ManagerPost, Post}
