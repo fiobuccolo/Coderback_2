@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ProductDao from "../daos/dbManager/product.dao.js";
+import productDao from "../daos/dbManager/product.dao.js";
 
 
 
@@ -25,18 +26,6 @@ productRouter.get("/", async (req, res) => {
           prods,
         });
   });
-
-// get al products con paginate
-  /*
-  consultas de productos con filtros, pagina y ordenamintos
-get de products:
-. recibir por query pararms un limit, una page, un sort, y un query
-limit defualt 10
-page default 1
-query: elemento a buscar
-sort por precio - si no se recibe ninguno
-- se debera poder buscar por categoria y por disponibilidad
-*/
 
 
 // Get one product
@@ -80,16 +69,46 @@ productRouter.post("/", async (req, res) => {
            
     } catch (error) {
       console.log(error);
-      res
-        .json({ info: "Error creating product", error });
+      return res
+        .json({ message: "Error creating product", error });
     }
   });
 
 
 
 // update one product
+productRouter.patch('/:pid',async (req,res) => {
+  try {
+      console.log("update products")
+      const { pid } = req.params;
+      const props = req.body;
+          console.log(pid)
+          const product = await ProductDao.UpdateOneProduct(pid, props)
+          return res
+            .status(200)
+            .json({status:"success", message:product})
+  } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({message:"error updating product", error: error.message, errorcode:error.code})  
+    }
+  }
+)
 
 // delete one product
-
+productRouter.delete('/:pid',async (req,res) => {
+      try{ 
+        const { pid } = req.params;
+        const product = await productDao.DeleteOneProduct(pid)
+        return res
+                .status(200)
+                .json({message:"ok",product})
+    }catch(error){
+      console.log(error);
+      res
+        .json({ info: "Error deleting product", error });
+      }
+      })
 
 export default productRouter

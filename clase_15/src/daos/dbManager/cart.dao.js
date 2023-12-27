@@ -17,9 +17,23 @@ class CartDao{
     }
 
     //Update one cart
-    async UpdateOneCart(CartId,productID){
-        return await cartModel.findByIdAndUpdate(CartId,productID)
+    async UpdateOneCart(cid,pid,quantity){
+        try {
+            const response = await cartModel.findByIdAndUpdate(
+                { _id: cid },
+                { $inc: { 'products.$[elem].quantity': quantity } },
+                { arrayFilters: [{ 'elem._id': pid }] }
+                )      
+            console.log(response);
+            if(response){
+                    return (`data: ${product}`)
+                } else{throw new Error("Hubo un error")}
+        } catch (error) {
+            console.log(`catch en el Dao UpdateOneCart : ${error}`)  
+        }
     }
+   
+
 
     //Delete one
     async DeleteOneCart(id){

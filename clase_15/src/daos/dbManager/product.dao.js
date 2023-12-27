@@ -46,7 +46,7 @@ class ProductDao{
             console.log(response);
             if(response){
                 return (`data: ${product}`)
-                }else{throw new Error("Hubo un error")}
+                } else{throw new Error("Hubo un error")}
                 //else{console.log("Hubo un error")}
         } catch (error) {
             console.log(`catch en el Dao CreateOne producto: ${error}`)
