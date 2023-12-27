@@ -5,9 +5,11 @@ class ProductDao{
     //get all
     async getAllProducts(){
         console.log("en el get all products");
-        return await productModel.find()
+        const prods =  await productModel.find()
+        console.log( `en el get productos: ${prods}`);
+        return prods
     }
-
+   
     // paginate
     async getPaginateProducts(page,limit, sort, filter){
         console.log("en el paginate all products");

@@ -1,20 +1,23 @@
-<div>
-    
+<div>  
     <div>
         {{!-- <form action="/api/realtimeproducts" method="post"> --}}
-         <form>
+         <form action="">
             <input type="text" name="title" placeholder="title" id="title">
              <input type="description" name="description" placeholder="description" id="description">
              <input type="category" name="category" id="category" placeholder="category" id="category">
              <input type="stock" name="stock" id="stock" placeholder="stock" id="stock">
              <input type="code" name="code" id="code" placeholder="code" id="code">
             <input type="number" name="price" id="price" placeholder="price" id="price">
-            <input type="submit" name="Send" id="button">
+             <input type="Submit" value="Send">
         </form>
      </div>
 
+
+     <h2>Posts</h2>
+    <div id="productsList"></div>
+
     <div class="productsList">
-        <div>
+        {{!-- <div>
          <h1>Products in real time:</h1>
             {{#each prods}}
                 <div class="card">
@@ -25,14 +28,12 @@
                 <p><button>Add to Cart</button></p>
                 </div>
             {{/each}}
-        </div>  
+        </div>   --}}
     </div>
      <script src="/socket.io/socket.io.js"></script>
     <script src="/js/realTimeProducts.js"></script>
      
 </div>
-
-
 
 
 

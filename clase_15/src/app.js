@@ -7,11 +7,18 @@ import {Server} from "socket.io"
 import viewsRouter from "./routes/views.routes.js";
 import cartRouter from "./routes/carts.routes.js";
 import productRouter from "./routes/product.routes.js";
+import ProductDao from "./daos/dbManager/product.dao.js";
+import Handlebars from "handlebars";
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
+
+
 
 const app = express()
 const httpServer = app.listen(PORT,()=>console.log(`Server listening on port: ${PORT}`)) 
 // Instanciar websocket:
-const socketServer = new Server(httpServer)
+const io = new Server(httpServer)
+
+
 
 // mongoose connection
 //--> para local: "mongodb://127.0.0.1:27017/baseDeDatos"
@@ -29,8 +36,11 @@ app.use(express.static(__dirname+`/public`))
 // Motor de plantillas:
 app.engine("hbs", handlebars.engine({
     extname: "hbs",
-    defaultLayout:"main"
+    defaultLayout:"main",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
 }))
+
+
 
 // Setear motor de plantillas
 app.set("view engine", "hbs")
@@ -43,52 +53,38 @@ app.use("/api/products",productRouter)
 app.use("/api/carts",cartRouter)
 
 
-/*
-
-import userRouter from "./routes/user.routes.js";
-
-
-app.use("/api/users",userRouter)
-  
-const messages = [];
 // Socket communication
 
-socketServer.on("connection",(socketClient)=>{
-   console .log("Nuevo cliente conectado");
-   socketClient.on("message",(data)=>{
-    console.log(data);
-    messages.push(data)
-    socketServer.emit("messages", messages)
+io.on("connection",(socket)=>{
+    console .log("Nuevo cliente conectado");
+    // recepcion del emit 1 
+    socket.on("products_message", async (product)=>{
+     console.log(product)
+    try {
+        await ProductDao.CreateOneProduct(product)
+        console.log("antes del emit");
+        socket.emit("products_list", ProductDao.getAllProducts())
+        
+    } catch (error) {
+        console.log(error);
+    }
    })
-   socketClient.on("newUser",(data)=>{
-    socketServer.emit("messages", messages)
-    socketClient.broadcast.emit("connected",data)
-   })
-
-   socketServer.emit("messages", messages)
-   })
+   socket.emit("products_list", ProductDao.getAllProducts())
    
+ })
+
+ 
+
+      
+
+    
+       
+       
+      
+  
 
 
 
 
-*/
 
 
-// ---------------------     
-/* desafio comple
-    continaur sobre el proyecto que has trabajado 
-    - incluir: agregar el modelo de persistencia de mongo y mongoose
-    - crear base de datos llamda ecommerce
-        - crear coleccion y respectivos schemas
-            . carts
-            .messages
-            .products
-    - separar los managers de filesystem de los de mongo db en una sola carpeta llamada dao
-    . Agregar los models ahi donde estaran los esquemas de mongo 
-
-    implementar nueva vista en handlebars llamda chat.handlebars
-        Los mensajes deben guardarse en coleccion messages en mongo 
-        user:correoDelUsuario,
-        message:mensaje del suaurio
-*/

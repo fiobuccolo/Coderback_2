@@ -13,9 +13,9 @@ productRouter.get("/", async (req, res) => {
     const products= await ProductDao.getAllProducts();
     console.log(products);
       return res
-        .json({
+        .json(
           products,
-        });
+        );
     }
     const filter = {
         category,
