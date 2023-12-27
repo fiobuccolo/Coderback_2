@@ -1,11 +1,28 @@
+
 import { productModel } from "../models/product.model.js";
 
 class ProductDao{
     //get all
     async getAllProducts(){
+        console.log("en el get all products");
         return await productModel.find()
     }
 
+    // paginate
+    async getPaginateProducts(page,limit, sort, filter){
+        console.log("en el paginate all products");
+        console.log(`sort: ${sort}`);
+        console.log(`limit: ${limit}`);
+        const producs = await productModel.paginate(
+            {filter},
+            {page,limit}
+        );
+        console.log(producs)
+        return producs 
+    }
+    
+    
+      
     //get one
     async getOneProduct(id){
         return await productModel.findById(id)
@@ -14,7 +31,8 @@ class ProductDao{
     //Create one
     async CreateOneProduct(product){
         try {
-            if(!product){return console.log("El product esta vacio");}
+            //if(!product){return console.log("El product esta vacio")}
+            if(!product) throw new Error("El producto está vacío")
             // Validación de codigo existente: 
             const products = await this.getAllProducts()
             console.log(products);
@@ -27,10 +45,11 @@ class ProductDao{
             const response = await productModel.create(product)
             console.log(response);
             if(response){
-                return ({message: `product created`})
-                }else{console.log("Hubo un error")}
+                return (`data: ${product}`)
+                }else{throw new Error("Hubo un error")}
+                //else{console.log("Hubo un error")}
         } catch (error) {
-  
+            console.log(`catch en el Dao CreateOne producto: ${error}`)
         }
     }
 
@@ -46,3 +65,4 @@ class ProductDao{
 }
 
 export default new ProductDao()
+
