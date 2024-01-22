@@ -4,6 +4,7 @@ import { userModel } from "../daos/models/users.models.js";
 import { createHash, isValidPassword } from "../dirname.js";
 import initializePassport from "../config/passport.config.js";
 import passport from "passport";
+import { generateJWToken } from "../../utils/jwt.utlils.js";
 
 const sessionsRouter = Router();
 
@@ -71,20 +72,24 @@ sessionsRouter.post("/register", passport.authenticate('register',{
                 console.log("console log nuevo");
                 user.role = "user"
             }
-        
-    req.session.user = {
-        name: `${user.first_name} ${user.last_name}`,
-        email: `${user.email}`,
-        age: `${user.age}`,
-        role:`${user.role}`
-    }
-    console.log(`sesion: ${JSON.stringify(req.session.user)}`)
-    
+// COMENTO LA SESION; PORQUE AHORA LA SESION LA VAMOS A GUARDAR EN EL TOKEN DE JWT    
+    // req.session.user = {
+    //     name: `${user.first_name} ${user.last_name}`,
+    //     email: `${user.email}`,
+    //     age: `${user.age}`,
+    //     role:`${user.role}`
+    // }
+    // console.log(`sesion: ${JSON.stringify(req.session.user)}`)
 
+// === USANDO JWT =====
+const accessToken = generateJWToken(user)
+console.log(accessToken);
+ 
     return res.status(200)
             .send({
                 status:"success",
                 payload: req.session.user,
+                accessToken: accessToken,
                 msg: "log in con exito"
                 })
             
