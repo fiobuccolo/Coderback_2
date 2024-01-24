@@ -165,11 +165,11 @@ passport.deserializeUser(async (id,done)=>{
     let token = null
     console.log("Entrando a cookie extractor");
     console.log(req.cookies);
+    
+
     if (req && req.cookies) {//Validamos que exista el request y las cookies.
-        console.log("Cookies presentes: ");
-        console.log(req.cookies);
         token = req.cookies['jwtCookieToken']
-        console.log("Token obtenido desde Cookie:");
+        console.log("token");
         console.log(token);
     }
     return token;

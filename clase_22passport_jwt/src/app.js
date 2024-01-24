@@ -21,6 +21,8 @@ import MongoStore from "connect-mongo"
 
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
+import cookieParser from "cookie-parser";
+
 
 const app = express()
 const httpServer = app.listen(PORT,()=>console.log(`Server listening on port: ${PORT}`)) 
@@ -39,8 +41,10 @@ mongoose
 //Middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
 app.use(express.static(__dirname+`/public`))
+
+//cookieparser
+app.use(cookieParser("f10s3cr3r"));
 
 // Motor de plantillas:
 app.engine("hbs", handlebars.engine({

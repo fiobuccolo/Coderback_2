@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser"
 import session from "express-session";
 import { authJWToken } from "../../utils/jwt.utlils.js";
 import passport from "passport";
+import { passportCall } from "../../utils/passport.utils.js";
 
 const usersViewsRouter = Router();
 
@@ -16,9 +17,11 @@ const usersViewsRouter = Router();
   })
    // ==== PROFILE ==== 
  usersViewsRouter.get("/", 
- //authToken --> bearer token
- passport.authenticate("jwt", {session:false}),
-  (req,res)=>{
+ // 1- authToken --> bearer token
+ // 2- passport.authenticate("jwt", { session:false }),
+ //3: 
+ passportCall("jwt"),
+   (req,res)=>{
     res.render("Profile", {
         user: req.user
     })
