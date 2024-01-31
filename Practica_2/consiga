@@ -1,0 +1,6 @@
+-- inicio de sesion JWT
+--  refactor a login
+
+-- usar bcrypt
+-- implementacion de passsport
+-- implementacion de login con github
