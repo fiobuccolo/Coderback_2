@@ -1,0 +1,32 @@
+arquitectura:
+- Persisntencia: 
+  . dao, dtop y factory (opcional)
+
+--> repositorio
+--> ruta current-- token del usuario y mostrar sin datos sensibles: DTO datos de abstraccio
+--> middleware.. sistema de autorizacion 
+  - administrador puede crear y actualizar y eliminar productos
+  -- el usuario puede enviar mensajes al chat
+  -- el usuario puede agregar productos al carrito
+
+  MODLEO ticket
+  - id
+  -code
+  -purhcase_datetime(Created at)
+  - amount (total de la compra)
+  - purchser- string con email del usuario del carrito
+
+
+Implementar en el router de carts la ruta /:cid/purchase
+la cual permitira terminar el proceso de compra. 
+
+debe corroborar stock
+- hay-- restar del stock, generar ticket de compra
+- no hay.--no finaliar -- devolver arreglo con los id de producto que no pudieron comprarse
+  y dejar carrito con los que no habia stock
+
+
+
+
+
+
