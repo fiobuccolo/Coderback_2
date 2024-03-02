@@ -2,19 +2,54 @@ import ProductsService from "../services/product.services.js"
 const productService = new ProductsService()
 
 
-
     const getProducts = async (req,res) =>{ 
         const { limit, page, sort, filter } = req.query;
         console.log(page , limit,sort,filter );
         try{
         const products = await productService.getAllProducts(page, limit,sort,filter)
-        console.log(products);
-        res.json(products)}
+       // console.log(products);
+       res.json(products)
+       }
         catch (error) {
             res.json({
                 message: error.message,
                })}; 
     }
+
+    
+      const getProductView = async (req,res) =>{
+        const { limit, page, sort, filter } = req.query;
+        console.log(page , limit,sort,filter );
+        try{
+        const products = await productService.getAllProducts(page, limit,sort,filter)
+        console.log(products);
+       // console.log(products);
+       res.render("products", {
+        products: products
+        
+     })
+       }
+        catch (error) {
+            res.json({
+                message: error.message,
+               })}; 
+    }
+     
+    
+
+
+     
+  
+
+
+
+
+
+ 
+
+
+
+
 
     const getOneProduct = async (req,res) =>{ 
         try {
@@ -112,5 +147,6 @@ export default {
     getOneProduct,
     saveProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getProductView
 }

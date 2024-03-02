@@ -33,6 +33,7 @@ const jwtRouter = Router();
         age: user.age,
         role:user.role
       }
+      console.log("tokenuser" + tokenUser.name);
       // === USANDO JWT =====
         const accessToken = generateJWToken(tokenUser)
         console.log(accessToken);

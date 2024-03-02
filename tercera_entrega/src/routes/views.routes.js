@@ -1,30 +1,14 @@
 import { Router } from "express";
 import ProductDao from "../daos/dbManager/product.dao.js";
+import productControllers from "../controllers/product.controllers.js";
+import { authorization, passportCall } from "../utils.js";
 
 
 const viewsRouter = Router();
 
-viewsRouter.get("/products", async(req,res)=>{
-    // const { limit = 4, page = 1, category = null, sort = 1 } = req.query;
-     const { limit, page, sort, filter } = req.query;
-    console.log(page , limit,sort,filter );
-    // const filter = {category}
-    try {
-        const prods = await ProductDao.getPaginateProducts(page, limit,sort,filter)
-        console.log(prods);
-        //res.json(products);
-        res.render("products",{
-            title: "products",
-            prods,
-            user: req.session.user,
-            fileCss:"products.css"
-        })
-    } catch (error) {
-        res.json({
-            message: error.message,
-           }); 
-    }  
-})
+viewsRouter.get("/products", passportCall("jwt"),productControllers.getProductView)
+
+
 
  //auth:
  function auth(req,res,next){

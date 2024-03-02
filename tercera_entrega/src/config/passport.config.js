@@ -163,8 +163,6 @@ const cookieExtractor = req =>{
     let token = null
     console.log("Entrando a cookie extractor");
     console.log(req.cookies);
-    
-
     if (req && req.cookies) {//Validamos que exista el request y las cookies.
         token = req.cookies['jwtCookieToken']
         console.log("token");

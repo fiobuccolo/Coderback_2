@@ -24,6 +24,7 @@ form.addEventListener("submit", e =>{
                         console.log(json);
                         localStorage.setItem("authToken",json.accessToken)
                         console.log(document.cookie);
+                        window.location.replace("/products")
                     })
                // window.location.replace("/products")
             }else if(result.status===401){

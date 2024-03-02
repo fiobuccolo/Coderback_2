@@ -102,7 +102,7 @@ app.use(passport.session())
     // --- API ---
     app.use("/api/products",productRouter)
     app.use("/api/carts",cartRouter)
-    app.use("/api/sessions",sessionsRouter)
+   // app.use("/api/sessions",sessionsRouter)
     app.use("/api/jwt",jwtRouter)
 
 
