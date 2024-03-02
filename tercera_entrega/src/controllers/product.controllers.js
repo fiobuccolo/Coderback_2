@@ -19,14 +19,16 @@ const productService = new ProductsService()
     
       const getProductView = async (req,res) =>{
         const { limit, page, sort, filter } = req.query;
+       const users = req.user
+        console.log(req.user);
         console.log(page , limit,sort,filter );
         try{
         const products = await productService.getAllProducts(page, limit,sort,filter)
         console.log(products);
        // console.log(products);
        res.render("products", {
-        products: products
-        
+        products: products,
+        user: users
      })
        }
         catch (error) {
