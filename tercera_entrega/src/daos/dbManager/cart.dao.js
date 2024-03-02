@@ -48,7 +48,7 @@ class CartDao{
 
 
     //Delete one
-    async DeleteOneCart(id){
+    async delete(id){
         return await cartModel.findByIdAndDelete(id)
     }
 }

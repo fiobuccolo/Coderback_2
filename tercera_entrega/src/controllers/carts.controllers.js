@@ -111,7 +111,7 @@ const productService = new ProductsService()
     try{ 
         console.log("delete carts")
         const { id } = req.params;
-        const product = await cartsService.delete(id)
+        const cart = await cartsService.delete(id)
         return res
                 .status(200)
                 .json({message:"ok",cart})
@@ -123,11 +123,15 @@ const productService = new ProductsService()
       }
   }
 
+  const createPurchase =async (req,res) =>{
+
+  }
 
 export default {    
   getCarts,
   getOneCart,
   createCart,
   updateCart,
-    deleteCart
+    deleteCart,
+    createPurchase
 }

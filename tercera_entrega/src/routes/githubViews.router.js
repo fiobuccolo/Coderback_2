@@ -1,6 +1,5 @@
 import { Router } from "express";
-import cookieParser from "cookie-parser"
-import session from "express-session";
+
 
 const gitHubLoginViewRouter = Router();
 
