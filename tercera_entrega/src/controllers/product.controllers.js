@@ -1,6 +1,8 @@
 import ProductsService from "../services/product.services.js"
 const productService = new ProductsService()
-
+import CustomError from "../services/errors/CustomError.js";
+import EErrors from "../services/errors/errors-enum.js";
+import { generateProductErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
 
     const getProducts = async (req,res) =>{ 
         const { limit, page, sort, filter } = req.query;
@@ -18,6 +20,7 @@ const productService = new ProductsService()
 
     
       const getProductView = async (req,res) =>{
+        
         const { limit, page, sort, filter } = req.query;
        const users = req.user
         console.log(req.user);
@@ -25,7 +28,7 @@ const productService = new ProductsService()
         try{
         const products = await productService.getAllProducts(page, limit,sort,filter)
         console.log(products);
-       // console.log(products);
+       console.log(products);
        res.render("products", {
         products: products,
         user: users
@@ -35,24 +38,9 @@ const productService = new ProductsService()
             res.json({
                 message: error.message,
                })}; 
-    }
+   }
      
     
-
-
-     
-  
-
-
-
-
-
- 
-
-
-
-
-
     const getOneProduct = async (req,res) =>{ 
         try {
             console.log("get one product")
@@ -73,17 +61,32 @@ const productService = new ProductsService()
         }
     
     }
+    
 
   
+
+
+
     const saveProduct =  async (req,res) =>{
         try {
             const {title,description,price,thumbnail,code,stock,status,category} = req.body
          // Validación de campos obligatorios
-       if(!title || !description || !price || !category || !stock || !code) {
-           return res
-             .status(400)
-             .json({message: "missing data"})
+      
+      
+
+
+         if(!title || !description || !price || !category || !stock || !code) {
+          CustomError.createError({
+            name: "Product Create Error",
+            cause: generateProductErrorInfo({ title, description, price, category,stock, code}),
+            message: "Error tratando de crear el producto",
+            code: EErrors.INVALID_TYPES_ERROR
+               })
               }
+                //  return res
+                  //  .status(400)
+                  //  .json({message: "missing data"})
+                  //   }
            const product = {title,description,price,thumbnail,code,stock,status,category}
           // console.log(product);
           const response = await productService.save(product)
@@ -94,7 +97,7 @@ const productService = new ProductsService()
            }  catch (error) {
                 console.log(error);
                return res
-                    .json({ message: "Error creating product", error: error.message});
+                      .json({ message: "Error creating product", error: error});
           }
          };
 

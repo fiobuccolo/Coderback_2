@@ -27,13 +27,14 @@ const jwtRouter = Router();
             return done(null,false) 
             }
         console.log("supere el is valid passport:");
+        
       const tokenUser={
         name: `${user.first_name} ${user.last_name}`,
         email: user.email,
         age: user.age,
         role:user.role
       }
-      console.log("tokenuser" + tokenUser.name);
+     
       // === USANDO JWT =====
         const accessToken = generateJWToken(tokenUser)
         console.log(accessToken);

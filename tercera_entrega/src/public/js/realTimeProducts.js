@@ -11,17 +11,7 @@ socket.on("products_list",async (data)=>{
     if(!data) console.log("no hay data");
     const div = document.querySelector("#productsList")
     div.innerHTML = "";
-    
-    // data.forEach((product) => {console.log(product);
-                        //     div.innerHTML += `
-                        
-                        //     <h1>${product.title}</h1>  
-                        //     <p>${product.description}</p>
-                        //     <p>${product.category}</p>
-                        //     <p>${product.price}</p>
-                        // < <br>` ;
-                        // }
-                        // )
+
                        
 })
 
@@ -43,11 +33,16 @@ form.addEventListener("submit", (e)=>{
         price: Number(formData.get("price")),
         
     }
-    console.log(product);
+    console.log("product desde el form" + product.title);
     socket.emit("products_message",product)
     form.reset()
 })
 
+socket.on("error",async (error) => {
+    console.log(JSON.stringify(error));
+    console.log(error)
+    
+})
 
 
 

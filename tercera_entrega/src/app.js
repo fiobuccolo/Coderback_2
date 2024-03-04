@@ -9,6 +9,7 @@ import Handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import {Server} from "socket.io"
 //import routers:
+import mockRouter from "./mocks/products.router.js";
 import viewsRouter from "./routes/views.routes.js";
 import sessionsRouter from "./routes/sessions.router.js";
 import usersViewsRouter from "./routes/usersViews.router.js";
@@ -17,6 +18,8 @@ import jwtRouter from "./routes/jwt.router.js";
 import cartRouter from "./routes/carts.routes.js";
 import productRouter from "./routes/product.routes.js";
 import ProductDao from "./daos/dbManager/product.dao.js";
+import ProductsService from "./services/product.services.js";
+import productControllers from "./controllers/product.controllers.js";
 import session from "express-session"
 import MongoStore from "connect-mongo"
 import passport from "passport";
@@ -104,25 +107,27 @@ app.use(passport.session())
     app.use("/api/carts",cartRouter)
    // app.use("/api/sessions",sessionsRouter)
     app.use("/api/jwt",jwtRouter)
+    // mocking
+    app.use("/api/",mockRouter)
 
 
 // Socket communication
-
+const productService = new ProductsService()
 io.on("connection",(socket)=>{
     console .log("Nuevo cliente conectado");
     // recepcion del emit 1 
     socket.on("products_message", async (product)=>{
-     console.log(product)
+        console.log("product desde socket.on de app" + product.title)
     try {
-        await ProductDao.CreateOneProduct(product)
+        await productService.save(product)
         console.log("antes del emit");
-        socket.emit("products_list", ProductDao.getAllProducts())
-        
+        socket.emit("products_list", productControllers.getProducts)
     } catch (error) {
-        console.log(error);
+         console.log(error);
+        return socket.emit("error", error)
     }
    })
-   socket.emit("products_list", ProductDao.getAllProducts())
+   socket.emit("products_list", productControllers.getProducts)
    
  })
 

@@ -6,7 +6,7 @@ import { authorization, passportCall } from "../utils.js";
 
 const viewsRouter = Router();
 
-viewsRouter.get("/products", passportCall("jwt"),productControllers.getProductView)
+viewsRouter.get("/products", passportCall("jwt"),  authorization("user"),productControllers.getProductView)
 
 
 
