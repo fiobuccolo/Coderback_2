@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { userModel } from "../daos/models/users.models.js";
+import { userModel } from "../models/users.models.js";
 import { isValidPassword } from "../utils.js";
 import { generateJWToken } from "../utils.js";
-
 
 const jwtRouter = Router();
 

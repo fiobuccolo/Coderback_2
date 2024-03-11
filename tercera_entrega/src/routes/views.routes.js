@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductDao from "../daos/dbManager/product.dao.js";
+
 import productControllers from "../controllers/product.controllers.js";
 import { authorization, passportCall } from "../utils.js";
 

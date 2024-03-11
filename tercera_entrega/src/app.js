@@ -11,13 +11,13 @@ import {Server} from "socket.io"
 //import routers:
 import mockRouter from "./mocks/products.router.js";
 import viewsRouter from "./routes/views.routes.js";
-import sessionsRouter from "./routes/sessions.router.js";
+
 import usersViewsRouter from "./routes/usersViews.router.js";
 import gitHubLoginViewRouter from "./routes/githubViews.router.js";
 import jwtRouter from "./routes/jwt.router.js";
 import cartRouter from "./routes/carts.routes.js";
 import productRouter from "./routes/product.routes.js";
-import ProductDao from "./daos/dbManager/product.dao.js";
+
 import ProductsService from "./services/product.services.js";
 import productControllers from "./controllers/product.controllers.js";
 import session from "express-session"
@@ -25,7 +25,7 @@ import MongoStore from "connect-mongo"
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import cookieParser from "cookie-parser";
-
+import { addLogger } from "./config/logger_CUSTOM.js";
 
 const app = express()
 const SERVER_PORT = config.port
@@ -55,6 +55,14 @@ app.use(cors());
 
 //cookieparser
 app.use(cookieParser("f10s3cr3r"));
+
+// **Logger
+app.use(addLogger);
+// **BASE
+// app.get("/logger", (req, res) => {
+//     req.logger.warning("Prueba de log level warning --> en Endpoint"); // **CUSTOM
+//     res.send("Prueba de logger!");
+// });
 
 // Motor de plantillas:
 app.engine("hbs", handlebars.engine({

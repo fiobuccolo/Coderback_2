@@ -1,6 +1,6 @@
 
 // Importar capa de Models --> Datos
-import productDao from "../daos/dbManager/product.dao.js";
+import productDao from "./daos/mongo/product.dao.js";
 
 
 export default class ProductsService {

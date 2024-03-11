@@ -4,6 +4,7 @@ import CustomError from "../services/errors/CustomError.js";
 import EErrors from "../services/errors/errors-enum.js";
 import { generateProductErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
 
+
     const getProducts = async (req,res) =>{ 
         const { limit, page, sort, filter } = req.query;
         console.log(page , limit,sort,filter );
@@ -48,6 +49,9 @@ import { generateProductErrorInfo } from "../services/errors/messages/product-cr
             console.log("controler", id)
             const product = await productService.getById(id)
             if(!product){
+             
+              req.logger.warn("warn: product doesn't exists with id: " + id); 
+              console.warn("warn: product doesn't exists with id: " + id);
               return res
               .status(404)
               .json({message:"product not found",product})
@@ -57,7 +61,9 @@ import { generateProductErrorInfo } from "../services/errors/messages/product-cr
               .json({status:"success", message: product})  
            }
         } catch (error) {
-        res.status(500).json({status:"error", error: error.message})  
+          req.logger.fatal(error)
+          console.error(error)
+         res.status(500).json({status:"error", error: error.message})  
         }
     
     }
@@ -76,6 +82,7 @@ import { generateProductErrorInfo } from "../services/errors/messages/product-cr
 
 
          if(!title || !description || !price || !category || !stock || !code) {
+
           CustomError.createError({
             name: "Product Create Error",
             cause: generateProductErrorInfo({ title, description, price, category,stock, code}),
