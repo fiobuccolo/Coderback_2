@@ -1,8 +1,10 @@
 
 
 import { productModel } from "../../../models/product.model.js";
-class ProductDao{
-   
+export default class ProductDao{
+    constructor() {
+        console.log("Producs with Database persistence in mongodb");
+    }
 // ------- DONE -----------
     async getProductsManager(page,limit, sort, filter){
         const query = {}
@@ -93,5 +95,4 @@ class ProductDao{
     }
 }
 
-export default new ProductDao()
 

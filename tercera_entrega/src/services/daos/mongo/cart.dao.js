@@ -1,5 +1,9 @@
 import { cartModel } from "../../../models/cart.model.js"
-class CartDao{
+export default class CartDao{
+    constructor() {
+        console.log("Carts with Database persistence in mongodb");
+    }
+
     //get all
     async getAllCarts(){
         return await cartModel.find()
@@ -53,4 +57,3 @@ class CartDao{
     }
 }
 
-export default new CartDao()

@@ -1,8 +1,10 @@
 
-import CartsService from "../services/cart.services.js"
-const cartsService = new CartsService()
-import ProductsService from "../services/product.services.js"
-const productService = new ProductsService()
+import { cartsService } from '../services/repository/services.js';
+import { productService } from '../services/repository/services.js';
+//import CartsService from "../services/cart.services.js"
+//const cartsService = new CartsService()
+//import ProductsService from "../services/product.services.js"
+//const productService = new ProductsService()
 
  // ------- PENDING PROBAR -----------
     const getCarts = async (req,res) =>{ 

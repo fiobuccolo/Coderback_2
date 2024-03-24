@@ -11,14 +11,14 @@ import {Server} from "socket.io"
 //import routers:
 import mockRouter from "./mocks/products.router.js";
 import viewsRouter from "./routes/views.routes.js";
-
+import emailRouter from "./routes/email.router.js";
 import usersViewsRouter from "./routes/usersViews.router.js";
 import gitHubLoginViewRouter from "./routes/githubViews.router.js";
 import jwtRouter from "./routes/jwt.router.js";
 import cartRouter from "./routes/carts.routes.js";
 import productRouter from "./routes/product.routes.js";
-
-import ProductsService from "./services/product.services.js";
+import { productService } from "./services/repository/services.js";
+//import ProductsService from "./services/oldproduct.services.js";
 import productControllers from "./controllers/product.controllers.js";
 import session from "express-session"
 import MongoStore from "connect-mongo"
@@ -117,10 +117,11 @@ app.use(passport.session())
     app.use("/api/jwt",jwtRouter)
     // mocking
     app.use("/api/",mockRouter)
-
+    //emails
+    app.use("/api/email", emailRouter);
 
 // Socket communication
-const productService = new ProductsService()
+//const productService = new ProductsService()
 io.on("connection",(socket)=>{
     console .log("Nuevo cliente conectado");
     // recepcion del emit 1 

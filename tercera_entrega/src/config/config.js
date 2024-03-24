@@ -29,11 +29,10 @@ export default{
     mongoDBName: process.env.MONGO_DB_NAME,
     adminName: process.env.ADMIN_NAME,
     adminPassword: process.env.ADMIN_PASSWORD,
+    gmailAccount:process.env.GMAIL_ACCOUNT,
+    gmailAppPassword: process.env.GMAIL_APP_PASSWD
+
 }
-
-
-
-
 
 
 

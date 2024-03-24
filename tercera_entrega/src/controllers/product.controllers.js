@@ -1,5 +1,7 @@
-import ProductsService from "../services/product.services.js"
-const productService = new ProductsService()
+import { productService } from '../services/repository/services.js';
+
+//import ProductsService from "../services/product.services.js"
+//const productService = new ProductsService()
 import CustomError from "../services/errors/CustomError.js";
 import EErrors from "../services/errors/errors-enum.js";
 import { generateProductErrorInfo } from "../services/errors/messages/product-creation-error.message.js";
