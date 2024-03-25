@@ -26,6 +26,9 @@ import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import cookieParser from "cookie-parser";
 import { addLogger } from "./config/logger_CUSTOM.js";
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express'
+
 
 const app = express()
 const SERVER_PORT = config.port
@@ -45,6 +48,21 @@ const mongoInstance = async() =>{
     }
 }
 mongoInstance();
+
+//SWAGGER
+const swaggerOptions = {
+    definition:{
+        openapi: "3.0.1",
+        info:{
+            title: "Documentacion api d fio",
+            descripcion: "Probando la documentación"
+        }
+     },
+    apis:[`./src/docs/**/*.yaml`]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use('/apidocs',swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 
 //JSON settings
 app.use(express.json())

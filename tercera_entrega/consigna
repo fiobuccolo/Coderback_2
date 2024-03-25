@@ -9,12 +9,7 @@ arquitectura:
   -- el usuario puede enviar mensajes al chat
   -- el usuario puede agregar productos al carrito
 
-  MODLEO ticket
-  - id
-  -code
-  -purhcase_datetime(Created at)
-  - amount (total de la compra)
-  - purchser- string con email del usuario del carrito
+  
 
 
 Implementar en el router de carts la ruta /:cid/purchase
@@ -29,4 +24,180 @@ debe corroborar stock
 
 
 
+
+
+
+
+////
+src
+
+│
+
+├── app.js
+
+├── utils.js
+
+│
+
+├── configs
+
+│  ├── auth
+
+│  └── db
+
+│    ├── env.config.js
+
+│    └── constants
+
+│      └── salt.constant.js
+
+│
+
+├── controllers
+
+│  ├── auth.controller.js
+
+│  ├── cart.controller.js
+
+│  ├── chat.controller.js
+
+│  └── products.controller.js
+
+│
+
+├── middlewares
+
+│  ├── error.middleware.js
+
+│  └── hasPermissions.middleware.js
+
+│
+
+├── models
+
+│  ├── cart.model.js
+
+│  ├── chat.model.js
+
+│  ├── product.model.js
+
+│  ├── ticket.model.js
+
+│  └── user.model.js
+
+│
+
+├── public
+
+│  ├── assets
+
+│  │  ├── css
+
+│  │  └── js
+
+│  │
+
+│  └── views
+
+│    └── layouts
+
+│      ├── adminPanel.handlebars
+
+│      ├── cart.handlebars
+
+│      ├── chat.handlebars
+
+│      ├── login.handlebars
+
+│      ├── productDetail.handlebars
+
+│      ├── products.handlebars
+
+│      ├── profile.handlebars
+
+│      ├── register.handlebars
+
+│      └── successfullyBuy.handlebars
+
+│
+
+├── routes
+
+│  ├── auth.routes.js
+
+│  ├── carts.routes.js
+
+│  ├── messages.routes.js
+
+│  ├── mock.routes.js
+
+│  └── products.routes.js
+
+│
+
+├── services
+
+│  ├── dao
+
+│  │  └── mongo
+
+│  │    ├── auth.dao.js
+
+│  │    ├── cart.dao.js
+
+│  │    ├── chat.dao.js
+
+│  │    └── product.dao.js
+
+│  │
+
+│  └── dto
+
+│    ├── cart.dto.js
+
+│    ├── chat.dto.js
+
+│    ├── product.dto.js
+
+│    └── user.dto.js
+
+│
+
+├── errors
+
+│  ├── CustomError.js
+
+│  ├── enumsError.js
+
+│  └── infoError.js
+
+│
+
+├── repository
+
+│  ├── auth.repository.js
+
+│  ├── cart.repository.js
+
+│  ├── chat.repository.js
+
+│  └── product.repository.js
+
+│
+
+└── utils
+
+  ├── bcrypt.js
+
+  ├── fakerData.js
+
+  ├── fetch.js
+
+  ├── jwt.js
+
+  ├── mail.js
+
+  ├── passport.js
+
+  └── process.js
 

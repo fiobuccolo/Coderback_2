@@ -1,0 +1,56 @@
+paths: 
+  /api/products:
+    get:
+      summary: Obtiene todos los productos de la App
+      tags: 
+        - Products
+      responses:
+        "200": 
+          description: respuesta exitosa. Se retorna un arreglo con los productos
+        "400":
+          description: Se envio un dato no valido. 
+        "500":
+          description: Error inesperado en el servidor. 
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: String
+          description: id autogenerado de mongo
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: descripción del producto
+        price:
+          type: Number
+          description: precio unitario del producto
+        thumbnail:
+          type: String
+          description: Foto del producto
+        code:
+          type: String
+          description: Código unico identificador del producto en el comercio
+        stock:
+          type: Number
+          description: Cantidad de productos remantentes en almacen
+        status:
+          type: Boolean
+          description:  Estado del producto para la venta
+        category:
+          type: String
+          description: Categoria del producto
+      Example:
+          _id: ObjectoId("3o24o32hlkddsfldsfj")
+          title:
+          description:
+          price:
+          thumbnail:
+          code:
+          stock:
+          status:
+          category:

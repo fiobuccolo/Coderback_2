@@ -1,0 +1,4 @@
+warn: warn: product doesn't exists with id: 65dc998e460c616d71ad6ce9
+warn: warn: product doesn't exists with id: 65dc998e460c616d71ad6ce9
+fatal: undefined {"kind":"ObjectId","path":"_id","reason":{},"stringValue":"\"65dc98e460c616d71ad6ce9\"","value":"65dc98e460c616d71ad6ce9","valueType":"string"}
+fatal: undefined {"kind":"ObjectId","path":"_id","reason":{},"stringValue":"\"65dc98e460c616d71ad6ce9\"","value":"65dc98e460c616d71ad6ce9","valueType":"string"}
